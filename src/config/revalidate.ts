@@ -18,16 +18,16 @@
  *   value = 0 / omitted for dynamic endpoints -> cache: "no-store" (always fresh).
  */
 export const REVALIDATE = {
-  /** Homepage sections (products by category, hero, campaigns). */
-  HOME_PAGE: 300, // 5 minutes
-  /** Product detail page + product reviews. */
-  PRODUCT: 60, // 1 minute
-  /** Category product list + category info (nav scroll too). */
-  CATEGORY: 120, // 2 minutes
-  /** Campaign detail page + active campaign list on home. */
-  CAMPAIGN: 300, // 5 minutes
-  /** Subnav product list. */
-  SUBNAVBAR: 120, // 2 minutes
+  /** Homepage product lists by category. */
+  HOME_PAGE: 43200, // 12 hours
+  /** Product detail, search, and catalog product feeds. */
+  PRODUCT: 43200, // 12 hours
+  /** Category products and category metadata. */
+  CATEGORY: 43200, // 12 hours
+  /** Campaign feeds and details, including their product lists. */
+  CAMPAIGN: 43200, // 12 hours
+  /** Subnav product lists. */
+  SUBNAVBAR: 43200, // 12 hours
   /** Homepage hero banners & announcement bar. */
   BANNER: 60, // 1 minute
   /** Announcement bar. */
@@ -37,5 +37,5 @@ export const REVALIDATE = {
   /** Site settings (footer, theme, GTM). */
   SETTINGS: 3600, // 1 hour
   /** Sitemap feed from backend (products-count / products chunk). */
-  SITEMAP: 3600, // 1 hour — matches the /sitemap.xml ISR window
+  SITEMAP: 43200, // 12 hours
 } as const;

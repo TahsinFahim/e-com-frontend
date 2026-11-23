@@ -16,7 +16,6 @@ export const categoryProductsService = {
       max_price?: number;
       q?: string;
       brand_id?: number;
-      refresh?: boolean;
     },
     signal?: AbortSignal
   ): Promise<CategoryProductsData> {
@@ -32,16 +31,12 @@ export const categoryProductsService = {
     if (params?.max_price !== undefined) query.set("max_price", String(params.max_price));
     if (params?.q) query.set("q", params.q);
     if (params?.brand_id !== undefined) query.set("brand_id", String(params.brand_id));
-    if (params?.refresh) query.set("refresh", "1");
-
     const qs = query.toString();
     const endpoint = `/categories/${slug}/products${qs ? `?${qs}` : ""}`;
 
     const res = await api<CategoryProductsRawResponse>(endpoint, {
       signal,
-      // refresh = 1 (client-side filter/sort) always hits the API fresh;
-      // initial server render uses the central category revalidate window.
-      revalidate: params?.refresh ? 0 : REVALIDATE.CATEGORY,
+      revalidate: REVALIDATE.PRODUCT,
       tags: [`category-products-${slug}`],
     });
 

@@ -1,4 +1,5 @@
 import { api, normalizeApiList, type ApiEnvelope } from "@/lib/api";
+import { REVALIDATE } from "@/config/revalidate";
 import type { ProductSearchResponse, ProductSearchResult } from "@/types/product";
 
 export { type ProductSearchResult as Product };
@@ -17,7 +18,8 @@ export const productService = {
     // Raw payload: { status, message, data: { query, items, suggestion } } —
     // normalize items into the data array the UI consumes.
     const res = await api<ApiEnvelope<ProductSearchResult>>(`/products/search?${params.toString()}`, {
-      revalidate: 0,
+      revalidate: REVALIDATE.PRODUCT,
+      tags: ["product-search"],
     });
     return normalizeApiList<ProductSearchResult>(res);
   },

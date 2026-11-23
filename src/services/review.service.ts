@@ -1,4 +1,5 @@
 import { api, normalizeApiList, normalizeApiData, type ApiEnvelope } from "@/lib/api";
+import { REVALIDATE } from "@/config/revalidate";
 import type { ReviewResponse, Review } from "@/types/review";
 
 export const reviewService = {
@@ -8,7 +9,7 @@ export const reviewService = {
   async getProductReviews(productId: number): Promise<ReviewResponse> {
     // Raw payload: { status, message, data: { items: Review[] } } — normalize.
     const res = await api<ApiEnvelope<Review>>(`/products/${productId}/reviews`, {
-      revalidate: 60,
+      revalidate: REVALIDATE.PRODUCT,
     });
     return normalizeApiList<Review>(res);
   },

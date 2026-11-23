@@ -36,7 +36,7 @@ export function useCategoryProducts(slug: string, initialData: CategoryProductsD
     const controller = new AbortController();
     let active = true;
     categoryProductsService.getBySlug(slug, {
-      sort, brand_id: brandId, page, per_page: 24, refresh: true,
+      sort, brand_id: brandId, page, per_page: 24,
     }, controller.signal).then((data) => {
       if (active) setResult({ request, data, error: "" });
     }).catch(() => {
